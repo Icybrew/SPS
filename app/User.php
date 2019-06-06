@@ -59,4 +59,9 @@ class User extends Authenticatable
         return $this->hasOne('SPS\ExtraInfoDoctor', 'doctor_id', 'id');
     }
 
+        public function extraInfoPharmacist()
+    {
+        return $this->hasOne('SPS\ExtraInfoPharmacist', 'pharmacist_id', 'id');
+    }
+
 }
