@@ -44,8 +44,8 @@ class User extends Authenticatable
         return $this->belongsToMany('SPS\Role', 'user_roles');
     }
     
-    public function isAdmin()
+    public function hasRole($role)
     {
-        return $this->roles()->where('name', 'Admin')->exists();
+        return $this->roles()->where('name', $role)->exists();
     }
 }
