@@ -38,19 +38,25 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-    
+
     public function roles()
     {
         return $this->belongsToMany('SPS\Role', 'user_roles');
     }
-    
+
     public function hasRole($role)
     {
         return $this->roles()->where('name', $role)->exists();
     }
-    
+
     public function extraInfoPatient()
     {
         return $this->hasOne('SPS\ExtraInfoPatient', 'patient_id', 'id');
     }
+
+    public function extraInfoDoctor()
+    {
+        return $this->hasOne('SPS\ExtraInfoDoctor', 'doctor_id', 'id');
+    }
+
 }
