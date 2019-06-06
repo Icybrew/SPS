@@ -48,4 +48,9 @@ class User extends Authenticatable
     {
         return $this->roles()->where('name', $role)->exists();
     }
+    
+    public function extraInfoPatient()
+    {
+        return $this->hasOne('SPS\ExtraInfoPatient', 'patient_id', 'id');
+    }
 }
