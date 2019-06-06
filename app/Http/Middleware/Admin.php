@@ -4,6 +4,8 @@ namespace SPS\Http\Middleware;
 
 use Closure;
 
+use Illuminate\Support\Facades\Auth;
+
 class Admin
 {
     /**
@@ -15,10 +17,10 @@ class Admin
      */
     public function handle($request, Closure $next)
     {
-        //if (Auth::user() && Auth::user()->admin) {
-        //    return $next($request);
-        //}
-        
-        return $next($request);
+        if (Auth::user() && Auth::user()->hasRole(config('roles.name.admin'))) {
+            return $next($request);
+        } else {
+            return abort(404);
+        }
     }
 }
