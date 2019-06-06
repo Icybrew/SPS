@@ -11,10 +11,14 @@
 |
 */
 
+/* AUTHORIZATION */
+Auth::routes();
+
+/* INDEX */
 Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+/* ADMIN */
+Route::get('/admin', 'Admin\AdminController@index')->middleware('admin')->name('admin');
 
-Route::get('/home', 'HomeController@index')->name('home');
