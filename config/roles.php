@@ -4,7 +4,10 @@ return [
 
     /* Role names */
     'name' => [
-        'admin' => 'Admin'
+        'admin' => 'Admin',
+        'patient' => 'Patient',
+        'doctor' => 'Doctor',
+        'pharmacist' => 'Pharmacist'
     ],
 
 ];
