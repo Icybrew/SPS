@@ -14,12 +14,16 @@ git clone https://github.com/Diceon/SPS.git
 composer install
 ```
 3. rename __.env.example__ to __.env__
-4. Enter database credentials to __.env__ file
-5. create tables via command:
+4. Generate key via command:
+``` bash
+php artisan key:generate
+```
+5. Enter database credentials to __.env__ file
+6. create tables via command:
 ```bash
 php artisan migrate
 ```
-4. Start website:
+7. Start website:
 ```bash
 php artisan serve
 ```
