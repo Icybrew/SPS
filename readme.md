@@ -5,13 +5,20 @@ Laravel shop
 </p>
 
 ## Usage
-- git clone repo
-- edit .env file, enter database credentials
+1. Clone repo
+``` bash
+git clone https://github.com/Diceon/SPS.git
+```
+2. Navigate to project folder and install composer dependencies
+```bash
+composer install
+```
+3. Create database and enter login credentials in __.env__
 - create tables via command:
 ```bash
 php artisan migrate
 ```
-- Start website:
+4. Start website:
 ```bash
 php artisan serve
 ```
