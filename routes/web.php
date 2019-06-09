@@ -23,5 +23,8 @@ Route::get('/contacts', 'ContactController@index')->name('contacts.index');
 /* SERVICES */
 Route::get('/services', 'ServiceController@index')->name('services.index');
 
+/* SPECIALISTS */
+Route::get('/specialists', 'SpecialistController@index')->name('specialists.index');
+
 /* ADMIN */
 Route::get('/admin', 'Admin\AdminController@index')->middleware('admin')->name('admin');
