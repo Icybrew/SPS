@@ -12,8 +12,12 @@
             @csrf
             @method('patch')
             <div class="form-group">
-                <label for="name">Name</label>
-                <input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstname" name="name" value="{{ old('firstname') ? old('firstname') : $doctor->name }}" placeholder="Name" required>
+                <label for="name">Firstname</label>
+                <input type="text" class="form-control @error('firstname') is-invalid @enderror" id="firstname" name="firstname" value="{{ old('firstname') ? old('firstname') : $doctor->firstname }}" placeholder="Firstname" required>
+            </div>
+            <div class="form-group">
+                <label for="name">Lastname</label>
+                <input type="text" class="form-control @error('lastname') is-invalid @enderror" id="lastname" name="lastname" value="{{ old('lastname') ? old('lastname') : $doctor->lastname }}" placeholder="Lastname" required>
             </div>
             <div class="form-group">
                 <label for="specialization">Specialization</label>

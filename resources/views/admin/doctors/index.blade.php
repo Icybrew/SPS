@@ -9,7 +9,7 @@
         @if(!empty($doctors) && count($doctors) > 0)
         <ul class="list-group col-xl-6 col-lg-7 col-md-10 col-sm-12 my-auto mx-auto">
             @foreach($doctors as $doctor)
-            <li class="list-group-item">ID: {{ $doctor->id }}, <a href="{{ route('admin.doctors.show', $doctor->id) }}">{{ $doctor->name }}</a> - {{ $doctor->email }} </li>
+            <li class="list-group-item">ID: {{ $doctor->id }}, <a href="{{ route('admin.doctors.show', $doctor->id) }}">{{ $doctor->firstname . ' ' . $doctor->lastname }}</a> - {{ $doctor->email }} </li>
             @endforeach
         </ul>
         @else

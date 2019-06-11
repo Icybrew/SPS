@@ -6,7 +6,7 @@
 @component('components.success')
 @endcomponent
         <div class="card-body">
-            <h5 class="card-title">{{ $doctor->name }}</h5>
+            <h5 class="card-title">{{ $doctor->firstname . ' ' . $doctor->lastname }}</h5>
             <p class="card-text">Specialization - {{ !empty($doctor->extraInfoDoctor->specialization) ? $doctor->extraInfoDoctor->specialization : NULL }}</p>
         </div>
         <ul class="list-group list-group-flush">

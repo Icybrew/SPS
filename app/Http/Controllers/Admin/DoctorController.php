@@ -61,7 +61,8 @@ class DoctorController extends Controller
 
         // Creating new user
         $doctor = new User;
-        $doctor->name = $request->firstname . ' ' . $request->lastname;
+        $doctor->firstname = $request->firstname;
+        $doctor->lastname = $request->lastname;
         $doctor->email = $request->email;
         $doctor->password = Hash::make($request->password);
         $doctor->save();
@@ -137,13 +138,15 @@ class DoctorController extends Controller
 
         // Validating data
         $request->validate([
-            'name' => 'required|string',
+            'firstname' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
             'password' => 'sometimes|nullable|string|min:4|max:255|confirmed',
             'specialization' => 'required|string'
         ]);
 
         // Updating user details
-        $doctor->name = $request->name;
+        $doctor->firstname = $request->firstname;
+        $doctor->lastname = $request->lastname;
         if ($request->password != NULL) {
             $doctor->password = Hash::make($request->password);
         }
