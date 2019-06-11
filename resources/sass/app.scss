@@ -168,6 +168,77 @@ a, a:focus, a:hover {
 
 /* Banner component end */
 
+
+/* Specialists page */
+.team-area .thumb {
+    position: relative;
+}
+
+.team-area .thumb .social-links {
+    text-align: center;
+    padding-top: 40px;
+}
+
+.team-area .thumb .social-links a {
+    color: #ffffff;
+    border: 1px solid #ffffff;
+    width: 32px;
+    display: inline-block;
+    padding: 4px 0px;
+    transition: all 300ms linear 0s;
+}
+
+.team-area .thumb .social-links a:hover {
+    background: #ffffff;
+    color: #3face4;
+}
+
+.team-area .thumb div {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #3face4;
+    color: #fff;
+    opacity: 0;
+    transition: opacity 0.5s;
+}
+
+.team-area .thumb img {
+    display: block;
+    width: 100%;
+}
+
+.team-area .thumb div span {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+    left: 20px;
+    text-transform: uppercase;
+    font-size: 18px;
+    font-weight: 600;
+    letter-spacing: 3px;
+}
+
+.team-area .thumb div p, .team-area .thumb div h4 {
+    display: block;
+    position: absolute;
+    bottom: 30px;
+}
+
+.team-area .thumb div h4 {
+    bottom: 75px;
+    color: #ffffff;
+}
+
+.team-area .thumb:hover div {
+    opacity: .85;
+    cursor: pointer;
+}
+/* Specialists page end */
+
+
 /* Services page */
 .single-service {
     text-align: center;
@@ -201,6 +272,7 @@ a, a:focus, a:hover {
     }
 }
 /* Services page end */
+
 
 /* Contacts page */
 .contact_info .info_item {
