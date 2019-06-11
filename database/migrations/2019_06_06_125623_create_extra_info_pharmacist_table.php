@@ -16,7 +16,7 @@ class CreateExtraInfoPharmacistTable extends Migration
         Schema::create('extra_info_pharmacist', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('pharmacist_id');
-            $table->foreign('pharmacist_id')->references('id')->on('users');
+            $table->foreign('pharmacist_id')->references('id')->on('users')->onDelete('cascade');;
             $table->string('workplace');
             $table->timestamps();
         });

@@ -16,7 +16,7 @@ class CreateExtraInfoPatientTable extends Migration
         Schema::create('extra_info_patient', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('patient_id');
-            $table->foreign('patient_id')->references('id')->on('users');
+            $table->foreign('patient_id')->references('id')->on('users')->onDelete('cascade');;
             $table->string('personal_identification_code');
             $table->timestamps();
         });

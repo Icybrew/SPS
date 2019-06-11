@@ -16,7 +16,7 @@ class CreateExtraInfoDoctorTable extends Migration
         Schema::create('extra_info_doctor', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('doctor_id');
-            $table->foreign('doctor_id')->references('id')->on('users');
+            $table->foreign('doctor_id')->references('id')->on('users')->onDelete('cascade');;
             $table->string('specialization');
             $table->timestamps();
         });
