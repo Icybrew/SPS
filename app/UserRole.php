@@ -12,4 +12,13 @@ class UserRole extends Model
         'role_id'
     ];
 
+    public function user()
+    {
+        $this->belongsTo('SPS\User');
+    }
+
+    public function role()
+    {
+        $this->belongsTo('SPS\Role');
+    }
 }
