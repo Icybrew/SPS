@@ -6,3 +6,124 @@
 
 // Bootstrap
 @import '~bootstrap/scss/bootstrap';
+
+::-moz-selection {
+  /* Code for Firefox */
+  background-color: #69be00;
+  color: #fff;
+}
+
+::selection {
+  background-color: #69be00;
+  color: #fff;
+}
+
+::-webkit-input-placeholder {
+  /* WebKit, Blink, Edge */
+  color: #777777;
+  font-weight: 300;
+}
+
+:-moz-placeholder {
+  /* Mozilla Firefox 4 to 18 */
+  color: #777777;
+  opacity: 1;
+  font-weight: 300;
+}
+
+::-moz-placeholder {
+  /* Mozilla Firefox 19+ */
+  color: #777777;
+  opacity: 1;
+  font-weight: 300;
+}
+
+:-ms-input-placeholder {
+  /* Internet Explorer 10-11 */
+  color: #777777;
+  font-weight: 300;
+}
+
+::-ms-input-placeholder {
+  /* Microsoft Edge */
+  color: #777777;
+  font-weight: 300;
+}
+
+body {
+  color: #777777;
+  font-family: "Poppins", sans-serif;
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 1.625em;
+  position: relative;
+}
+
+ol, ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+select {
+  display: block;
+}
+
+figure {
+  margin: 0;
+}
+
+a {
+  -webkit-transition: all 0.3s ease 0s;
+  -moz-transition: all 0.3s ease 0s;
+  -o-transition: all 0.3s ease 0s;
+  transition: all 0.3s ease 0s;
+}
+
+iframe {
+  border: 0;
+}
+
+a, a:focus, a:hover {
+  text-decoration: none;
+  outline: 0;
+}
+
+/*--------------*/
+/*    Footer    */
+/*--------------*/
+.footer-area {
+  padding-top: 100px;
+  background-color: #222222;
+}
+
+.footer-area .footer-nav li {
+  margin-top: 8px;
+}
+
+.footer-area .footer-nav li a {
+  color: #777777;
+}
+
+.footer-area .footer-nav li a:hover {
+  color: #69be00;
+}
+
+.footer-area h6 {
+  color: #fff;
+  margin-bottom: 25px;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.single-footer-widget h3 {
+  color: #fff;
+}
+
+.footer-text a,
+.footer-text i {
+  color: #69be00;
+}
+/*------------------*/
+/*    Footer End    */
+/*------------------*/
