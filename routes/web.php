@@ -27,7 +27,7 @@ Route::get('/services', 'ServiceController@index')->name('services.index');
 Route::get('/specialists', 'SpecialistController@index')->name('specialists.index');
 
 /* ADMIN */
-Route::get('/admin', 'Admin\AdminController@index')->middleware('admin')->name('admin');
+Route::get('/admin', 'Admin\AdminController@index')->middleware('admin')->name('admin.index');
 
 Route::resource('admin/doctors', 'Admin\DoctorController', [
     'as' => 'admin'
