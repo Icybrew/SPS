@@ -59,7 +59,7 @@
                         <li class="nav-item{{ Request::is('contacts*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('contacts.index') }}">Contacts</a>
                         </li>
-@if(Auth::user()->hasRole(config('roles.name.admin')))
+@if(Auth::check() && Auth::user()->hasRole(config('roles.name.admin')))
                         <li class="nav-item{{ Request::is('admin*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
                         </li>
