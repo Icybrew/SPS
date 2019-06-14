@@ -107,7 +107,7 @@ class DoctorController extends Controller
     {
         // Getting user with required role
         $doctor = User::with('extraInfoDoctor')->whereHas('roles', function ($q) {
-            $q->where('name', 'Doctor');
+            $q->where('name', config('roles.name.doctor'));
         })->where('id', '=', $id)->firstOrFail();
 
         // Authorizing action
@@ -126,7 +126,7 @@ class DoctorController extends Controller
     {
         // Getting user with required role
         $doctor = User::with('extraInfoDoctor')->whereHas('roles', function ($q) {
-            $q->where('name', 'Doctor');
+            $q->where('name', config('roles.name.doctor'));
         })->where('id', '=', $id)->firstOrFail();
 
         // Authorizing action
@@ -149,7 +149,7 @@ class DoctorController extends Controller
     {
         // Getting user with required role
         $doctor = User::with('extraInfoDoctor')->whereHas('roles', function ($q) {
-            $q->where('name', 'Doctor');
+            $q->where('name', config('roles.name.doctor'));
         })->where('id', '=', $id)->firstOrFail();
 
         // Authorizing action
@@ -212,7 +212,7 @@ class DoctorController extends Controller
     {
         // Getting user with required role
         $doctor = User::with('extraInfoDoctor')->whereHas('roles', function ($q) {
-            $q->where('name', 'Doctor');
+            $q->where('name', config('roles.name.doctor'));
         })->where('id', '=', $id)->firstOrFail();
 
         // Authorizing action
