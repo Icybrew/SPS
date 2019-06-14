@@ -8,8 +8,11 @@ use SPS\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
 
 use SPS\User;
-use SPS\UserRole;
+
 use SPS\Role;
+use SPS\UserRole;
+
+use SPS\Specialization;
 use SPS\ExtraInfoDoctor;
 
 class DoctorController extends Controller
@@ -35,7 +38,10 @@ class DoctorController extends Controller
         // Authorizing action
         $this->authorize('create', User::class);
 
-        return view('admin.doctors.create');
+        // Getting specialization list for view
+        $specializations = Specialization::all();
+
+        return view('admin.doctors.create', compact('specializations'));
     }
 
     /**
@@ -46,6 +52,7 @@ class DoctorController extends Controller
      */
     public function store(Request $request)
     {
+
         // Authorizing actions
         $this->authorize('create', User::class);
         $this->authorize('create', UserRole::class);
@@ -56,7 +63,8 @@ class DoctorController extends Controller
             'lastname' => 'required',
             'email' => 'required|unique:users',
             'password' => 'required|confirmed',
-            'specialization' => 'required',
+            'specialization' => 'required_without:customSpecialization|nullable|integer|exists:Specializations,id',
+            'customSpecialization' => 'required_without:specialization|nullable|string|min:1|max:191|unique:specializations,name',
         ]);
 
         // Creating new user
@@ -67,9 +75,17 @@ class DoctorController extends Controller
         $doctor->password = Hash::make($request->password);
         $doctor->save();
 
+        // Creating extra info
         $extraInfo = new ExtraInfoDoctor;
         $extraInfo->doctor_id = $doctor->id;
-        $extraInfo->specialization = $request->specialization;
+        if ($request->specialization !== NULL) {
+            $extraInfo->specialization_id = $request->specialization;
+        } elseif ($request->customSpecialization !== NULL) {
+            $specialization = new Specialization;
+            $specialization->name = $request->customSpecialization;
+            $specialization->save();
+            $extraInfo->specialization_id = $specialization->id;
+        }
         $extraInfo->save();
 
         // Assigning doctor role for newly created user
