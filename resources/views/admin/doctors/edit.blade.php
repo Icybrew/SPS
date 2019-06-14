@@ -21,7 +21,14 @@
             </div>
             <div class="form-group">
                 <label for="specialization">Specialization</label>
-                <input type="text" class="form-control @error('specialization') is-invalid @enderror" id="specialization" name="specialization" value="{{ old('firstname') ? old('specialization') : $doctor->extraInfoDoctor->specialization }}" placeholder="Specialization" required>
+                <select class="form-control @error('specialization') is-invalid @enderror" id="selectSpecialization" name="specialization" required>
+                    <option selected disabled hidden="">Specialization</option>
+@foreach($specializations as $specialization)
+                    <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
+@endforeach
+                    <option value="">Other</option>
+                </select>
+                <input type="text" class="form-control mt-2 d-none @error('specialization') is-invalid @enderror" id="inputSpecialization" name="customSpecialization" value="{{ old('specialization') ? old('specialization') : NULL }}" placeholder="Specialization">
             </div>
             <div class="form-group">
                 <label for="password">Password</label>

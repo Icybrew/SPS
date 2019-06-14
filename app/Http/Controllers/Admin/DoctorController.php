@@ -132,7 +132,10 @@ class DoctorController extends Controller
         // Authorizing action
         $this->authorize('update', $doctor);
 
-        return view('admin.doctors.edit', compact('doctor'));
+        // Getting specialization list for view
+        $specializations = Specialization::all();
+
+        return view('admin.doctors.edit', compact('doctor', 'specializations'));
     }
 
     /**
@@ -157,7 +160,8 @@ class DoctorController extends Controller
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
             'password' => 'sometimes|nullable|string|min:4|max:255|confirmed',
-            'specialization' => 'required|string'
+            'specialization' => 'required_without:customSpecialization|nullable|integer|exists:Specializations,id',
+            'customSpecialization' => 'required_without:specialization|nullable|string|min:1|max:191|unique:specializations,name',
         ]);
 
         // Updating user details
@@ -169,10 +173,33 @@ class DoctorController extends Controller
         $doctor->save();
 
         // Updating user extra details
-        $doctor->extraInfoDoctor->specialization = $request->specialization;
-        $doctor->extraInfoDoctor->save();
+        if ($doctor->extraInfoDoctor !== NULL) {
+            if ($request->specialization !== NULL) {
+                $doctor->extraInfoDoctor->specialization_id = $request->specialization;
+            } else if ($request->customSpecialization !== NULL) {
+                $specialization = new Specialization;
+                $specialization->name = $request->customSpecialization;
+                $specialization->save();
+                $doctor->extraInfoDoctor->specialization_id = $specialization->id;
+            }
 
-        return view('admin.doctors.doctor', compact('doctor'))->with('success', 'User has been updated');
+            $doctor->extraInfoDoctor->save();
+        } else {
+            $extraInfoDoctor = new ExtraInfoDoctor;
+            $extraInfoDoctor->doctor_id = $doctor->id;
+            if ($doctor->specialization !== NULL) {
+                $extraInfoDoctor->specialization_id = $request->specialization;
+            } else if ($request->customSpecialization !== NULL) {
+                $specialization = new Specialization;
+                $specialization->name = $request->customSpecialization;
+                $specialization->save();
+                $extraInfoDoctor->specialization_id = $specialization->id;
+            }
+
+            $extraInfoDoctor->save();
+        }
+
+        return redirect()->route('admin.doctors.show', $doctor->id)->with('success', 'User has been updated');
     }
 
     /**
