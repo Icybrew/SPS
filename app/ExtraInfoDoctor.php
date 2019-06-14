@@ -10,7 +10,8 @@ class ExtraInfoDoctor extends Model
     protected $table = 'extra_info_doctor';
 
     protected $fillable = [
-        'specialization'
+        'doctor_id',
+        'specialization_id'
     ];
 
     public function user()
@@ -18,4 +19,8 @@ class ExtraInfoDoctor extends Model
         return $this->belongsTo('SPS\User', 'id');
     }
 
+    public function specialization()
+    {
+        return $this->hasOne('SPS\Specialization', 'id', 'specialization_id');
+    }
 }
