@@ -7,7 +7,7 @@
 @endcomponent
         <div class="card-body">
             <h5 class="card-title">{{ $doctor->firstname . ' ' . $doctor->lastname }}</h5>
-            <p class="card-text">Specialization - {{ !empty($doctor->extraInfoDoctor->specialization) ? $doctor->extraInfoDoctor->specialization : NULL }}</p>
+            <p class="card-text">Specialization - {{ !empty($doctor->extraInfoDoctor->specialization->name) ? $doctor->extraInfoDoctor->specialization->name : 'Not specified' }}</p>
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Email: {{ $doctor->email }}</li>
