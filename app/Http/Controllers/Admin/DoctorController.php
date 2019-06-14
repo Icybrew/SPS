@@ -24,7 +24,7 @@ class DoctorController extends Controller
      */
     public function index()
     {
-        $doctors = Role::where('name', '=', config('roles.name.doctor'))->first()->users;
+        $doctors = Role::where('name', '=', config('roles.name.doctor'))->first()->users()->paginate(config('admin.paginate.doctors.index'));
         return view('admin.doctors.index', compact('doctors'));
     }
 
