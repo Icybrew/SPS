@@ -10,7 +10,8 @@ class ExtraInfoPatient extends Model
     protected $table = 'extra_info_patient';
 
     protected $fillable = [
-        'personal_identification_code'
+        'patient_id',
+        'ssn'
     ];
 
     public function user()
