@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use SPS\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 
 use SPS\User;
 
@@ -61,6 +62,13 @@ class PatientController extends Controller
             'ssn' => 'required|integer|digits:11',
             'birthday' => 'required|date|before_or_equal:' . date('Y-m-d'),
         ]);
+        $ssnBirthdayPart = substr($request->ssn, 1, 6);
+        $shortBirthday = substr(str_replace('-', '', $request->birthday), 2);
+
+        // Validating SSN with birthday date
+        if ($ssnBirthdayPart !== $shortBirthday) {
+            return back()->withErrors(new MessageBag(['ssn' => "SSN doesn't match birthday date"]))->withInput();
+        }
 
         // Creating new user
         $patient = new User;
