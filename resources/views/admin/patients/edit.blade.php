@@ -3,7 +3,7 @@
 @section('content')
 <section class="container my-5">
     <div class="my-5">
-        <h1 class="text-center">{{ $patient->name }}</h1>
+        <h1 class="text-center">{{ $patient->firstname . ' ' . $patient->lastname }}</h1>
     </div>
     <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 mx-auto">
 @component('components.errors')
@@ -24,7 +24,7 @@
                 <input type="number" class="form-control @error('ssn') is-invalid @enderror" id="inputSSN" name="ssn" value="{{ old('ssn') ? old('ssn') : (!empty($patient->extraInfoPatient->ssn) ? $patient->extraInfoPatient->ssn : NULL) }}" min="10000000000" max="99999999999" placeholder="SSN" required>
             </div>
             <div class="form-group">
-                <label for="ssn">Birthday</label>
+                <label for="birthday">Birthday</label>
                 <input type="date" class="form-control @error('specialization') is-invalid @enderror" id="inputSpecialization" name="birthday" value="{{ old('birthday') ? old('birthday') : $patient->birthday }}" max="{{ date('Y-m-d') }}" placeholder="Birthday">
             </div>
             <div class="form-group">

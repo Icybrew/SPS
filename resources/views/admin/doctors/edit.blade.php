@@ -3,7 +3,7 @@
 @section('content')
 <section class="container my-5">
     <div class="my-5">
-        <h1 class="text-center">{{ $doctor->name }}</h1>
+        <h1 class="text-center">{{ $doctor->firstname . ' ' . $doctor->lastname }}</h1>
     </div>
     <div class="col-xl-6 col-lg-6 col-md-8 col-sm-12 mx-auto">
 @component('components.errors')

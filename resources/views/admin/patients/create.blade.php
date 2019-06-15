@@ -27,7 +27,7 @@
                 <input type="number" class="form-control @error('ssn') is-invalid @enderror" id="inputSSN" name="ssn" value="{{ old('ssn') ? old('ssn') : NULL }}" min="10000000000" max="99999999999" placeholder="SSN" required>
             </div>
             <div class="form-group">
-                <label for="ssn">Birthday</label>
+                <label for="birthday">Birthday</label>
                 <input type="date" class="form-control @error('specialization') is-invalid @enderror" id="inputSpecialization" name="birthday" value="{{ old('birthday') ? old('birthday') : NULL }}" max="{{ date('Y-m-d') }}" placeholder="Birthday">
             </div>
             <div class="form-group">
