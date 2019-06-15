@@ -49,6 +49,26 @@ class User extends Authenticatable
         return $this->roles()->where('name', $role)->exists();
     }
 
+    public function isAdmin()
+    {
+        return $this->hasRole(config('roles.name.admin'));
+    }
+
+    public function isDoctor()
+    {
+        return $this->hasRole(config('roles.name.doctor'));
+    }
+
+    public function isPatient()
+    {
+        return $this->hasRole(config('roles.name.patient'));
+    }
+
+    public function isPharmacist()
+    {
+        return $this->hasRole(config('roles.name.pharmacist'));
+    }
+
     public function extraInfoPatient()
     {
         return $this->hasOne('SPS\ExtraInfoPatient', 'patient_id', 'id');
