@@ -28,7 +28,7 @@
             </div>
             <div class="form-group">
                 <label for="birthday">Birthday</label>
-                <input type="date" class="form-control @error('specialization') is-invalid @enderror" id="inputSpecialization" name="birthday" value="{{ old('birthday') ? old('birthday') : NULL }}" max="{{ date('Y-m-d') }}" placeholder="Birthday" required>
+                <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="inputSpecialization" name="birthday" value="{{ old('birthday') ? old('birthday') : NULL }}" max="{{ date('Y-m-d') }}" placeholder="Birthday" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
