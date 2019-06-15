@@ -45,3 +45,8 @@ Route::resource('admin/doctors', 'Admin\DoctorController', [
 Route::resource('admin/patients', 'Admin\PatientController', [
     'as' => 'admin'
 ])->middleware('admin');
+
+/* ADMIN PHARMACISTS */
+Route::resource('admin/pharmacists', 'Admin\PharmacistController', [
+    'as' => 'admin'
+])->middleware('admin');
