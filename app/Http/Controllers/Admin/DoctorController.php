@@ -62,6 +62,7 @@ class DoctorController extends Controller
             'firstname' => 'required',
             'lastname' => 'required',
             'email' => 'required|unique:users',
+            'birthday' => 'sometimes|nullable|date|before_or_equal:' . date('Y-m-d'),
             'password' => 'required|confirmed',
             'specialization' => 'required_without:customSpecialization|nullable|integer|exists:Specializations,id',
             'customSpecialization' => 'required_without:specialization|nullable|string|min:1|max:191|unique:specializations,name',
@@ -72,6 +73,9 @@ class DoctorController extends Controller
         $doctor->firstname = $request->firstname;
         $doctor->lastname = $request->lastname;
         $doctor->email = $request->email;
+        if ($request->birthday !== NULL) {
+            $doctor->birthday = $request->birthday;
+        }
         $doctor->password = Hash::make($request->password);
         $doctor->save();
 
@@ -159,6 +163,7 @@ class DoctorController extends Controller
         $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
+            'birthday' => 'sometimes|nullable|date|before_or_equal:' . date('Y-m-d'),
             'password' => 'sometimes|nullable|string|min:4|max:255|confirmed',
             'specialization' => 'required_without:customSpecialization|nullable|integer|exists:Specializations,id',
             'customSpecialization' => 'required_without:specialization|nullable|string|min:1|max:191|unique:specializations,name',
@@ -167,6 +172,9 @@ class DoctorController extends Controller
         // Updating user details
         $doctor->firstname = $request->firstname;
         $doctor->lastname = $request->lastname;
+        if ($request->birthday !== NULL) {
+            $doctor->birthday = $request->birthday;
+        }
         if ($request->password != NULL) {
             $doctor->password = Hash::make($request->password);
         }
@@ -216,7 +224,7 @@ class DoctorController extends Controller
         })->where('id', '=', $id)->firstOrFail();
 
         // Authorizing action
-        $this->authorize('delete');
+        $this->authorize('delete', $doctor);
 
         // Deleting user
         $doctor->delete();
