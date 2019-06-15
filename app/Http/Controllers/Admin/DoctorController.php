@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use SPS\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\MessageBag;
 
 use SPS\User;
 
@@ -14,6 +15,8 @@ use SPS\UserRole;
 
 use SPS\Specialization;
 use SPS\ExtraInfoDoctor;
+
+use SPS\Patient;
 
 class DoctorController extends Controller
 {
@@ -230,5 +233,55 @@ class DoctorController extends Controller
         $doctor->delete();
 
         return view('admin.doctors.index')->with('success', 'User has been deleted');
+    }
+
+    public function patients($id)
+    {
+        // Getting user with required role and extra info
+        $doctor = User::with('patients', 'extraInfoDoctor')->whereHas('roles', function ($q) {
+            $q->where('name', '=', config('roles.name.doctor'));
+        })->findOrFail($id);
+
+        // Getting users patient list
+        $patients = $doctor->patients()->paginate();
+
+        return view('admin.doctors.patients', compact('doctor', 'patients'));
+    }
+
+    public function addPatient($id)
+    {
+        // Getting user with required role
+        $doctor = User::with('extraInfoDoctor')->whereHas('roles', function ($q) {
+            $q->where('name', config('roles.name.doctor'));
+        })->where('id', '=', $id)->firstOrFail();
+
+        // Getting patients list
+        $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->paginate(config('admin.paginate.patients.index'));
+
+        return view('admin.doctors.addPatient', compact('doctor', 'patients'));
+    }
+    
+    public function storePatient(Request $request, $id)
+    {
+        // Validating data
+        $request->validate([
+            'patient' => 'required|integer'
+        ]);
+
+        // Getting patient with role
+        $patient = User::whereHas('roles', function ($q) {
+            $q->where('name', config('roles.name.patient'));
+        })->where('id', '=', $request->patient)->firstOrFail();
+
+        if (Patient::where([['doctor_id', '=', $id], ['patient_id', '=', $patient->id]])->exists()) {
+            return back()->withErrors(new MessageBag(['patient' => "Patient is already assigned to this doctor"]))->withInput();
+        }
+
+        $patients = new Patient;
+        $patients->patient_id = $patient->id;
+        $patients->doctor_id = $id;
+        $patients->save();
+
+        return redirect()->route('admin.doctors.patients', $id)->with('success', 'Patient has been added');
     }
 }
