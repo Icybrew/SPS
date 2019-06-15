@@ -41,6 +41,10 @@ Route::resource('admin/doctors', 'Admin\DoctorController', [
     'as' => 'admin'
 ])->middleware('admin');
 
+Route::get('/admin/doctors/{id}/patients', 'Admin\DoctorController@patients')->name('admin.doctors.patients');
+Route::get('/admin/doctors/{id}/patients/add', 'Admin\DoctorController@addPatient')->name('admin.doctors.patients.add');
+Route::post('/admin/doctors/{id}/patients', 'Admin\DoctorController@storePatient')->name('admin.doctors.patients.store');
+
 /* ADMIN PATIENTS */
 Route::resource('admin/patients', 'Admin\PatientController', [
     'as' => 'admin'
