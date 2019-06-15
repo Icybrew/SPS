@@ -171,7 +171,7 @@ class PatientController extends Controller
 
         // Updating user extra details
         if ($patient->extraInfoPatient !== NULL) {
-            $patient->ssn = $request->ssn;
+            $patient->extraInfoPatient->ssn = $request->ssn;
             $patient->extraInfoPatient->save();
         } else {
             $extraInfoPatient = new ExtraInfoPatient;
