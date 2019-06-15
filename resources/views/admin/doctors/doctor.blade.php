@@ -18,6 +18,7 @@
         <div class="card-body d-flex">
             <a href="{{ route('admin.doctors.index') }}" class="mr-auto"><button type="button" class="btn btn-dark">&larr; Go back</button></a>
             <div>
+                <a href="{{ route('admin.doctors.patients', $doctor->id) }}" class="card-link"><button type="button" class="btn btn-primary">Patients</button></a>
                 <a href="{{ route('admin.doctors.edit', $doctor->id) }}" class="card-link"><button type="button" class="btn btn-primary">Edit</button></a>
                 <form action="{{ route('admin.doctors.destroy', $doctor->id) }}" method="post" class="d-inline">
                     @csrf
