@@ -66,12 +66,12 @@ class User extends Authenticatable
 
     public function patients()
     {
-        return $this->hasMany('SPS\Patient', 'doctor_id', 'id');
+        return $this->hasManyThrough('SPS\User', 'SPS\Patient', 'doctor_id', 'id', 'id', 'patient_id');
     }
 
     public function doctors()
     {
-        return $this->hasMany('SPS\Patient', 'patient_id', 'id');
+        return $this->hasManyThrough('SPS\User', 'SPS\Patient', 'patient_id', 'id', 'id', 'doctor_id');
     }
 
 }
