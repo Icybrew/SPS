@@ -11,6 +11,7 @@
         </div>
         <ul class="list-group list-group-flush">
             <li class="list-group-item">Email: {{ $doctor->email }}</li>
+            <li class="list-group-item">Birthday: {{ !empty($doctor->birthday) ? $doctor->birthday : 'Not specified' }}</li>
             <li class="list-group-item">Registered at: {{ $doctor->created_at }}</li>
             <li class="list-group-item">Updated at: {{ $doctor->updated_at }}</li>
         </ul>

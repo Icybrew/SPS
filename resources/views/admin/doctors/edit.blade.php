@@ -31,6 +31,10 @@
                 <input type="text" class="form-control mt-2 d-none @error('specialization') is-invalid @enderror" id="inputSpecialization" name="customSpecialization" value="{{ old('specialization') ? old('specialization') : NULL }}" placeholder="Specialization">
             </div>
             <div class="form-group">
+                <label for="birthday">Birthday</label>
+                <input type="date" class="form-control @error('birthday') is-invalid @enderror" id="inputSpecialization" name="birthday" value="{{ old('birthday') ? old('birthday') : (!empty($doctor->birthday) ? $doctor->birthday : NULL) }}" max="{{ date('Y-m-d') }}" placeholder="Birthday">
+            </div>
+            <div class="form-group">
                 <label for="password">Password</label>
                 <input type="password" class="form-control @error('password') is-invalid @enderror" id="password" name="password" placeholder="Password">
                 <small>Leave password blank if dont want to change</small>
