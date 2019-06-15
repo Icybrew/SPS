@@ -16,7 +16,7 @@ class ExtraInfoPatient extends Model
 
     public function user()
     {
-        return $this->belongsTo('SPS\User', 'id');
+        return $this->belongsTo('SPS\User', 'id', 'patient_id');
     }
 
 }

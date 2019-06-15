@@ -16,7 +16,7 @@ class ExtraInfoDoctor extends Model
 
     public function user()
     {
-        return $this->belongsTo('SPS\User', 'id');
+        return $this->belongsTo('SPS\User', 'id', 'doctor_id');
     }
 
     public function specialization()
