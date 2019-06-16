@@ -16,6 +16,7 @@
 /*-------------------*/
 Auth::routes();
 
+
 /*-------------*/
 /*   GENERAL   */
 /*-------------*/
@@ -30,6 +31,10 @@ Route::get('/services', 'ServiceController@index')->name('services.index');
 
 /* SPECIALISTS */
 Route::get('/specialists', 'SpecialistController@index')->name('specialists.index');
+
+/* Medical History */
+Route::resource('/medical-history', 'MedicalHistoryController')->middleware('auth');
+
 
 /*-----------*/
 /*   ADMIN   */
