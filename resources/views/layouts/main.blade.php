@@ -60,7 +60,7 @@
                             <a class="nav-link" href="{{ route('contacts.index') }}">Contacts</a>
                         </li>
 @if(Auth::check() && Auth::user()->isPatient())
-                        <li class="nav-item{{ Request::is('patients*') ? ' active' : NULL }}">
+                        <li class="nav-item{{ Request::is('medical-history*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('medical-history.index') }}">Medical history</a>
                         </li>
 @endif
