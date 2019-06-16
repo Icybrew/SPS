@@ -19,6 +19,12 @@ class PatientMedicalHistory extends Model
         'visited_at'
     ];
 
+    protected $casts = [
+        'visit_compensated' => 'boolean',
+        'visit_repeated' => 'boolean',
+        'visited_at' => 'datetime',
+    ];
+
     public function doctor()
     {
         return $this->hasOne('SPS\User', 'id', 'doctor_id');
