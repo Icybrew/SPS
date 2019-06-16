@@ -98,4 +98,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('SPS\PatientMedicalHistory', 'patient_id', 'id');
     }
+
+    public function prescriptions()
+    {
+        return $this->hasMany('SPS\PatientPrescription', 'patient_id', 'id');
+    }
 }
