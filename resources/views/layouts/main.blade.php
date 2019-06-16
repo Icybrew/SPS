@@ -59,6 +59,11 @@
                         <li class="nav-item{{ Request::is('contacts*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('contacts.index') }}">Contacts</a>
                         </li>
+@if(Auth::check() && Auth::user()->isPatient())
+                        <li class="nav-item{{ Request::is('patients*') ? ' active' : NULL }}">
+                            <a class="nav-link" href="{{ route('medical-history.index') }}">Medical history</a>
+                        </li>
+@endif
 @if(Auth::check() && Auth::user()->hasRole(config('roles.name.admin')))
                         <li class="nav-item{{ Request::is('admin*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
