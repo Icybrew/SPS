@@ -16,6 +16,16 @@ class PatientMedicalHistory extends Model
         'visit_duration',
         'visit_compensated',
         'visit_repeated',
-        'visit_at'
+        'visited_at'
     ];
+
+    public function doctor()
+    {
+        return $this->hasOne('SPS\User', 'id', 'doctor_id');
+    }
+
+    public function patient()
+    {
+        return $this->hasOne('SPS\User', 'id', 'patient_id');
+    }
 }
