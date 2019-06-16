@@ -94,4 +94,8 @@ class User extends Authenticatable
         return $this->hasManyThrough('SPS\User', 'SPS\Patient', 'patient_id', 'id', 'id', 'doctor_id');
     }
 
+    public function medicalHistory()
+    {
+        return $this->hasMany('SPS\PatientMedicalHistory', 'patient_id', 'id');
+    }
 }
