@@ -1,0 +1,73 @@
+/*------------------------*/
+/*    Banner component    */
+/*------------------------*/
+
+.banner-wrapper {
+    position: relative;
+    z-index: 1;
+    min-height: 350px;
+}
+
+.banner-wrapper .banner-inner-wrapper {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    min-height: 350px;
+    background: url(../img/banner-bg.jpg) no-repeat center bottom;
+    background-size: auto;
+    z-index: 1;
+}
+
+.banner-wrapper .banner-inner-wrapper .overlay {
+    background: rgba(0, 0, 0, 0.42);
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content {
+    position: relative;
+    z-index: 10;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content h2 {
+    color: #ffffff;
+    font-size: 48px;
+    font-family: "Poppins", sans-serif;
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content .page_link a {
+    font-size: 14px;
+    color: #ffffff;
+    font-family: "Poppins", sans-serif;
+    margin-right: 32px;
+    position: relative;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content .page_link a:before {
+    content: "\e87a";
+    font-size: 14px;
+    position: absolute;
+    right: -25px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content .page_link a:last-child {
+    margin-right: 0px;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content .page_link a:last-child:before {
+    display: none;
+}
+
+.banner-wrapper .banner-inner-wrapper .banner-content .page_link a:hover {
+    color: #3face4;
+}
+/*----------------------------*/
+/*    Banner component End    */
+/*----------------------------*/
