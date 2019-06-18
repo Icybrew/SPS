@@ -11,7 +11,11 @@
 @foreach($medicalHistory as $entry)
             <li class="list-group-item my-1">
                 <div>
-                    Visit date: {{ $entry->visited_at }}</div>
+                    Disease code: {{ $entry->disease_code }}
+                </div>
+                <div>
+                    Visit date: {{ $entry->visited_at }}
+                </div>
                 <div>
                     Doctor: {{ $entry->doctor->firstname . ' ' . $entry->doctor->lastname }}
                 </div>
