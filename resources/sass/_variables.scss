@@ -17,3 +17,29 @@ $yellow: #ffed4a;
 $green: #38c172;
 $teal: #4dc0b5;
 $cyan: #6cb2eb;
+
+$baseColor: #3face4;
+$dip: #000000;
+$pfont: #777777;
+$lightGray: #f9f9ff;
+$gray: #dddddd;
+$white: #ffffff;
+$black: #222222;
+
+
+// Mixins
+@mixin transform($transform) {
+    -webkit-transform: $transform;
+    -moz-transform: $transform;
+    -o-transform: $transform;
+    -ms-transform: $transform;
+    transform: $transform;
+}
+
+@mixin filter($filter) {
+    -webkit-filter: $filter;
+    -moz-filter: $filter;
+    -o-filter: $filter;
+    -ms-filter: $filter;
+    filter: $filter;
+}
