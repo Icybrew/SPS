@@ -35,6 +35,9 @@ Route::get('/specialists', 'SpecialistController@index')->name('specialists.inde
 /* Medical History */
 Route::resource('/medical-history', 'MedicalHistoryController')->middleware('auth');
 
+/* Prescriptions */
+Route::resource('/prescriptions', 'PrescriptionController')->middleware('auth');
+
 
 /*-----------*/
 /*   ADMIN   */
