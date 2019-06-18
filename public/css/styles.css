@@ -9793,13 +9793,13 @@ body {
   font-size: 14px;
   font-weight: 300;
   line-height: 24px;
-  position: relative;
-  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-body::after {
-  content: "";
-  display: block;
-  height: 365px;
+
+.content {
+  flex: 1;
 }
 
 ol, ul {
@@ -10170,12 +10170,6 @@ a, a:focus, a:hover {
 /*--------------*/
 /*    Footer    */
 /*--------------*/
-footer {
-  position: absolute;
-  bottom: 0;
-  width: 100%;
-}
-
 .footer-area {
   padding-top: 100px;
   background-color: #222222;
