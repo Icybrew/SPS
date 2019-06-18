@@ -9783,6 +9783,10 @@ h3 {
 /*----------------*/
 /*    General    */
 /*----------------*/
+html {
+  height: 100%;
+}
+
 body {
   color: #777777;
   font-family: "Poppins", sans-serif;
@@ -9790,6 +9794,12 @@ body {
   font-weight: 300;
   line-height: 24px;
   position: relative;
+  min-height: 100%;
+}
+body::after {
+  content: "";
+  display: block;
+  height: 365px;
 }
 
 ol, ul {
@@ -10160,6 +10170,12 @@ a, a:focus, a:hover {
 /*--------------*/
 /*    Footer    */
 /*--------------*/
+footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+}
+
 .footer-area {
   padding-top: 100px;
   background-color: #222222;

@@ -1,6 +1,10 @@
 /*----------------*/
 /*    General    */
 /*----------------*/
+html {
+    height:100%;
+}
+
 body {
     color: #777777;
     font-family: "Poppins", sans-serif;
@@ -8,6 +12,13 @@ body {
     font-weight: 300;
     line-height: 24px;
     position: relative;
+    min-height: 100%;
+
+    &::after {
+        content:'';
+        display:block;
+        height:365px; // Footer height
+    }
 }
 
 ol, ul {
