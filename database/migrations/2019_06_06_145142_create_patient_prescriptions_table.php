@@ -23,10 +23,6 @@ class CreatePatientPrescriptionsTable extends Migration
             $table->foreign('medical_substance_id')->references('id')->on('medical_substances');
             $table->string('description');
             $table->timestamp('expires_at')->nullable();
-            $table->boolean('purchased')->default(0);
-            $table->timestamp('purchased_at')->nullable();
-            $table->unsignedBigInteger('pharmacist_id')->nullable();
-            $table->foreign('pharmacist_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

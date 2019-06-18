@@ -14,15 +14,10 @@ class PatientPrescription extends Model
         'medical_substance_id',
         'description',
         'expires_at',
-        'purchased',
-        'purchased_at',
-        'pharmacist_id',
     ];
 
     protected $casts = [
         'expires_at' => 'datetime',
-        'purchased' => 'boolean',
-        'purchased_at' => 'datetime'
     ];
 
     public function doctor()
