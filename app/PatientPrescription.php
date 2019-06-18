@@ -40,4 +40,8 @@ class PatientPrescription extends Model
         return $this->hasOne('SPS\MedicalSubstance', 'id', 'medical_substance_id');
     }
 
+    public function purchases()
+    {
+        return $this->hasMany('SPS\PatientPrescriptionPurchase', 'patient_prescription_id', 'id');
+    }
 }
