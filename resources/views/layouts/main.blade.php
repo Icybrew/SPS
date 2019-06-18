@@ -64,6 +64,11 @@
                             <a class="nav-link" href="{{ route('medical-history.index') }}">Medical history</a>
                         </li>
 @endif
+@if(Auth::check() && Auth::user()->isPatient())
+                        <li class="nav-item{{ Request::is('prescriptions*') ? ' active' : NULL }}">
+                            <a class="nav-link" href="{{ route('prescriptions.index') }}">Prescriptions</a>
+                        </li>
+@endif
 @if(Auth::check() && Auth::user()->hasRole(config('roles.name.admin')))
                         <li class="nav-item{{ Request::is('admin*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('admin.index') }}">Admin</a>
