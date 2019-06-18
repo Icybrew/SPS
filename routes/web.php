@@ -32,6 +32,13 @@ Route::get('/services', 'ServiceController@index')->name('services.index');
 /* SPECIALISTS */
 Route::get('/specialists', 'SpecialistController@index')->name('specialists.index');
 
+/* Profile */
+Route::resource('/profile', 'ProfileController')->middleware('auth')->except([
+    'create', 'store', 'destroy'
+]);
+Route::get('/profile/{id}/change-password', 'ProfileController@editPassword')->name('profile.edit-password')->middleware('auth');
+Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword')->name('profile.update-password')->middleware('auth');
+
 /* Medical History */
 Route::resource('/medical-history', 'MedicalHistoryController')->middleware('auth');
 
