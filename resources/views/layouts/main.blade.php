@@ -20,11 +20,11 @@
 
         <!-- Styles -->
         <link href="{{ asset('css/fontawesome.min.css') }}" rel="stylesheet">
-        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+        <link href="{{ asset('css/styles.css') }}" rel="stylesheet">
 
         <!-- Scripts -->
         <script src="https://kit.fontawesome.com/819a6d8daa.js"></script>
-        <script src="{{ asset('js/app.js') }}" defer></script>
+        <script src="{{ asset('js/javascript.js') }}" defer></script>
 
     </head>
     <body>
