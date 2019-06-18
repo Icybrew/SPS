@@ -1,10 +1,71 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : Jun 18, 2019, 4:20:55 PM
-    Author     : Faith
-*/
+//--------- Home Page Banner Area -------------//
+.home-banner-wrapper {
+    background: url(../img/home.jpg) no-repeat center top;
+    background-size: cover;
+    position: relative;
+    z-index: 1;
+    height: 900px;
 
+    .banner-inner-wrapper {
+        position: relative;
+        width: 100%;
+        min-height: 900px;
+
+        .banner-content {
+            color: $dip;
+            padding-top: 110px;
+            align-self: center;
+            vertical-align: middle;
+
+            h1 {
+                font-size: 48px;
+                max-width: 520px;
+                color: $white;
+                margin: 0;
+            }
+
+            p {
+                font-size: 14px;
+                line-height: 24px;
+                font-weight: normal;
+                color: #ffffff;
+                padding: 30px 0px 40px;
+                max-width: 498px;
+                margin: 0;
+            }
+        }
+    }
+}
+
+//--------- End Home Page Banner Area -------------//
+
+//--------- Offered Services Area -------------//
+.procedure {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.procedure-details {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.35);
+    width: 90%;
+    height: 90%;
+    transition: opacity .5s;
+    opacity: 0;
+    
+    &:hover {
+        opacity: 1;
+    }
+}
+
+.procedure-text h5 {
+    color: $white;
+    border-top: 1px dotted $white;
+    border-bottom: 1px dotted $white;
+    padding: 2% 0;
+}
+//--------- End Offered services Area -------------//
