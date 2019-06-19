@@ -10,7 +10,6 @@ class MedicalSubstance extends Model
 
     protected $fillable = [
         'name',
-        'substance_in_dose',
         'measurement_unit_id'
     ];
 
