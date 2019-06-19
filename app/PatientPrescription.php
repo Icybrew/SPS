@@ -13,6 +13,7 @@ class PatientPrescription extends Model
         'patient_id',
         'medical_substance_id',
         'substance_in_dose',
+        'measurement_unit_id',
         'description',
         'expires_at',
     ];
@@ -35,6 +36,11 @@ class PatientPrescription extends Model
     public function medicalSubstance()
     {
         return $this->hasOne('SPS\MedicalSubstance', 'id', 'medical_substance_id');
+    }
+
+    public function MeasurementUnit()
+    {
+        return $this->hasOne('SPS\MeasurementUnit', 'id', 'measurement_unit_id');
     }
 
     public function purchases()
