@@ -10,8 +10,8 @@ class MeasurementUnit extends Model
         'unit'
     ];
 
-    public function medicalSubstances()
+    public function prescriptions()
     {
-        return $this->hasMany('SPS\MedicalSubstance', 'measurement_unit_id', 'id');
+        return $this->hasMany('SPS\PatientPrescription', 'measurement_unit_id', 'id');
     }
 }
