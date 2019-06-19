@@ -12,12 +12,14 @@ class PatientPrescription extends Model
         'doctor_id',
         'patient_id',
         'medical_substance_id',
+        'substance_in_dose',
         'description',
         'expires_at',
     ];
 
     protected $casts = [
         'expires_at' => 'datetime',
+        'substance_in_dose' => 'double'
     ];
 
     public function doctor()
