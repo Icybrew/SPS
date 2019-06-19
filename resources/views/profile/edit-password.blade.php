@@ -1,6 +1,9 @@
 @extends('layouts.main')
 
 @section('content')
+@component('components.header')
+{{ Breadcrumbs::render('profile.change-password', $user) }}
+@endcomponent
 <div class="container">
     <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto">
         <div class="my-5 text-center">
@@ -33,7 +36,7 @@
                     <input type="password" class="form-control col-7 my-auto @error('password_new') is-invalid @enderror" name="password_new_confirmation" placeholder="New password confirmation" required>
                 </div>
                 <div class="mt-3 pb-5">
-                    <a href="{{ url()->previous() }}"><button type="button" class="btn btn-dark float-left">&larr; Go back</button></a>
+                    <a href="{{ route('profile.index') }}"><button type="button" class="btn btn-dark float-left">&larr; Profile</button></a>
                     <button type="submit" class="btn btn-primary float-right">Confirm &rarr;</button>
                 </div>
             </form>

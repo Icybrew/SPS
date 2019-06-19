@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-@component('components.header', ['name' => 'Services', 'link' => 'services.index'])
+@component('components.header')
+{{ Breadcrumbs::render('services') }}
 @endcomponent
 <section class="mx-auto">
     <div class="container">

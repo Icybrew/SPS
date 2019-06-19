@@ -1,7 +1,10 @@
 @extends('layouts.main')
 
 @section('content')
-<div class="container">
+@component('components.header')
+{{ Breadcrumbs::render('profile.edit', $user) }}
+@endcomponent
+<div class="container my-5">
     <div class="col-xl-6 col-lg-10 col-md-10 col-sm-12 mx-auto">
         <div class="my-5 text-center">
             <h1>Edit profile</h1>
@@ -51,7 +54,7 @@
 @enderror
                 </div>
                 <div class="mt-3 pb-5">
-                    <a href="{{ url()->previous() }}"><button type="button" class="btn btn-dark float-left">&larr; Go back</button></a>
+                    <a href="{{ route('profile.index') }}"><button type="button" class="btn btn-dark float-left">&larr; Profile</button></a>
                     <button type="submit" class="btn btn-primary float-right">Confirm &rarr;</button>
                 </div>
             </form>

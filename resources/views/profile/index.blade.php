@@ -1,12 +1,15 @@
 @extends('layouts.main')
 
 @section('content')
+@component('components.header')
+{{ Breadcrumbs::render('profile') }}
+@endcomponent
 <div class="container">
 @component('components.errors')
 @endcomponent
 @component('components.success')
 @endcomponent
-    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto">
+    <div class="col-xl-6 col-lg-8 col-md-10 col-sm-12 mx-auto my-5">
         <div class="my-5 text-center">
             <h1>Your profile</h1>
         </div>

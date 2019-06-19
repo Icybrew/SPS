@@ -1,7 +1,8 @@
 @extends('layouts.main')
 
 @section('content')
-@component('components.header', ['name' => 'Specialists', 'link' => 'specialists.index'])
+@component('components.header')
+{{ Breadcrumbs::render('specialists') }}
 @endcomponent
 <section class="team-area section_gap">
     <div class="container">
