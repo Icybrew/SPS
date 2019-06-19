@@ -39,11 +39,21 @@ Route::resource('/profile', 'ProfileController')->middleware('auth')->except([
 Route::get('/profile/{id}/change-password', 'ProfileController@editPassword')->name('profile.edit-password')->middleware('auth');
 Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword')->name('profile.update-password')->middleware('auth');
 
-/* Medical History */
-Route::resource('/medical-history', 'MedicalHistoryController')->middleware('auth');
+
+/* Patients */
+Route::get('/patients', 'PatientController@index')->middleware('auth')->name('patients.index');
+Route::get('/patients/export', 'PatientController@export')->middleware('auth')->name('patients.export');
+Route::get('/patients/{id}', 'PatientController@show')->middleware('auth')->name('patients.show');
+
+/* Medical history */
+Route::resource('/patients/{id}/medical-history', 'MedicalHistoryController', [
+    'as' => 'patients'
+])->middleware('auth');
 
 /* Prescriptions */
-Route::resource('/prescriptions', 'PrescriptionController')->middleware('auth');
+Route::resource('/patients/{id}/prescriptions', 'PrescriptionController', [
+    'as' => 'patients'
+])->middleware('auth');
 
 
 /*-----------*/

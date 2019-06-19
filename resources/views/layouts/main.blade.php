@@ -59,14 +59,9 @@
                         <li class="nav-item{{ Request::is('contacts*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('contacts.index') }}">Contacts</a>
                         </li>
-@if(Auth::check() && Auth::user()->isPatient())
-                        <li class="nav-item{{ Request::is('medical-history*') ? ' active' : NULL }}">
-                            <a class="nav-link" href="{{ route('medical-history.index') }}">Medical history</a>
-                        </li>
-@endif
-@if(Auth::check() && Auth::user()->isPatient())
-                        <li class="nav-item{{ Request::is('prescriptions*') ? ' active' : NULL }}">
-                            <a class="nav-link" href="{{ route('prescriptions.index') }}">Prescriptions</a>
+@if(Auth::check() && Auth::user()->isDoctor())
+                        <li class="nav-item{{ Request::is('patients*') ? ' active' : NULL }}">
+                            <a class="nav-link" href="{{ route('patients.index') }}">Patients</a>
                         </li>
 @endif
 @if(Auth::check() && Auth::user()->hasRole(config('roles.name.admin')))
@@ -90,6 +85,12 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+@if(Auth::user()->isPatient())
+                                <a class="dropdown-item" href="{{ route('patients.medical-history.index', Auth::user()->id) }}">Medical history</a>
+@endif
+@if(Auth::user()->isPatient())
+                                <a class="dropdown-item" href="{{ route('patients.prescriptions.index', Auth::user()->id) }}">Prescriptions</a>
+@endif
                                 <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
 
