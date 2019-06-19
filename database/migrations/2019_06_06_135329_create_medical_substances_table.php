@@ -16,8 +16,6 @@ class CreateMedicalSubstancesTable extends Migration
         Schema::create('medical_substances', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name')->unique();
-            $table->unsignedBigInteger('measurement_unit_id');
-            $table->foreign('measurement_unit_id')->references('id')->on('measurement_units');
             $table->timestamps();
         });
     }

@@ -10,11 +10,10 @@ class MedicalSubstance extends Model
 
     protected $fillable = [
         'name',
-        'measurement_unit_id'
     ];
 
-    public function measurementUnit()
+    public function prescriptions()
     {
-        return $this->hasOne('SPS\MeasurementUnit', 'id', 'measurement_unit_id');
+        return $this->hasMany('SPS\PatientPrescription', 'medical_substance_id', 'id');
     }
 }
