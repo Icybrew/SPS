@@ -43,6 +43,6 @@ class ExtraInfoPatientSeeder extends Seeder
             $ssn .= rand(1, 9);
         }
 
-        return $output;
+        return $ssn;
     }
 }
