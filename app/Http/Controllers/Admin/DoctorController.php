@@ -256,7 +256,9 @@ class DoctorController extends Controller
         })->where('id', '=', $id)->firstOrFail();
 
         // Getting patients list
-        $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->paginate(config('admin.paginate.patients.index'));
+        $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->whereNotIn('users.id', function ($q) use($doctor) {
+            $q->select('patients.patient_id')->from('patients')->where('patients.doctor_id', '=', $doctor->id);
+        })->paginate(config('admin.paginate.patients.index'));
 
         return view('admin.doctors.addPatient', compact('doctor', 'patients'));
     }
