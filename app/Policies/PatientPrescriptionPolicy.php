@@ -19,7 +19,7 @@ class PatientPrescriptionPolicy
      */
     public function view(User $user, PatientPrescription $patientPrescription)
     {
-        if ($user->isAdmin() || $user->isDoctor() || ($user->id == $patientPrescription->patient_id)) {
+        if ($user->isAdmin() || $user->isDoctor() || $user->isPharmacist() || ($user->id == $patientPrescription->patient_id)) {
             return TRUE;
         } else {
             return FALSE;
