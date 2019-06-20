@@ -17,6 +17,7 @@ class AuthServiceProvider extends ServiceProvider
         'SPS\UserRole' => 'SPS\Policies\UserRolePolicy',
         'SPS\PatientMedicalHistory' => 'SPS\Policies\PatientmedicalHistoryPolicy',
         'SPS\PatientPrescription' => 'SPS\Policies\PatientPrescriptionPolicy',
+        'SPS\Patient' => 'SPS\Policies\PatientPolicy',
     ];
 
     /**
