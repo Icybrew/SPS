@@ -12,6 +12,14 @@ use SPS\MeasurementUnit;
 
 class PrescriptionController extends Controller
 {
+
+    public function __construct() {
+
+        // Making sure user is logged in.
+        $this->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -21,17 +29,25 @@ class PrescriptionController extends Controller
     {
         // Checking if request if for specific patient
         if ($patient_id !== NULL) {
-            // Getting patient with prescription relation
+
+            // Getting patient with prescriptions
             $patient = User::with(['prescriptions.doctor', 'prescriptions.patient', 'prescriptions.medicalSubstance', 'prescriptions.measurementUnit'])->findOrFail($patient_id);
 
-            // Getting prescription list from patient
+            // Checking if current user can view patients prescriptions
+            $this->authorize('viewPrescriptions', $patient);
+
+            // Getting prescription list from patient, ordered by expiration date, nulls at top
             $prescriptions = $patient->prescriptions()->orderByRaw('-expires_at asc')->paginate();
 
+            // Returning view with patient & prescriptions
             return view('patients.prescriptions.index', compact('patient', 'prescriptions'));
         } else {
+
+            // Getting current users prescriptions, ordered by expiration date, nulls at top
             $prescriptions = User::with(['prescriptions.doctor', 'prescriptions.patient', 'prescriptions.medicalSubstance', 'prescriptions.medicalSubstance.measurementUnit'])->find(Auth::user()->id)->prescriptions()->orderByRaw('-expires_at asc')->paginate();
 
-            return 'WIP';
+            // Returning view with patient & prescriptions
+            return view('patients.prescriptions.index', compact('patient', 'prescriptions'));
         }
     }
 
@@ -43,12 +59,18 @@ class PrescriptionController extends Controller
      */
     public function show($patient_id, $prescription_id)
     {
-        // Getting specific prescription with relations
-        $prescription = PatientPrescription::with(['doctor', 'patient', 'medicalSubstance', 'measurementUnit', 'purchases', 'purchases.pharmacist'])->findOrFail($prescription_id);
+        // Getting specific prescription with additional relations
+        $prescription = PatientPrescription::with(['doctor', 'patient', 'medicalSubstance', 'measurementUnit', 'purchases', 'purchases.pharmacist'])
+                ->where('patient_id', '=', $patient_id)
+                ->findOrFail($prescription_id);
+
+        // Checking if current user can view specific prescription
+        $this->authorize('view', $prescription);
 
         // Getting patient from prescription relation
         $patient = $prescription->patient;
 
+        // Returning view with patient & prescription
         return view('patients.prescriptions.prescription', compact('patient', 'prescription'));
     }
 
@@ -59,6 +81,9 @@ class PrescriptionController extends Controller
      */
     public function create($patient_id)
     {
+        // Checking if current user can create prescription
+        $this->authorize('create', PatientPrescription::class);
+
         // Getting user with extraInfoPatient who has patient role
         $patient = User::with('extraInfoPatient')->whereHas('roles', function ($q) {
             $q->where('name', config('roles.name.patient'));
@@ -70,6 +95,7 @@ class PrescriptionController extends Controller
         // Getting all measurement units
         $measurementUnits = MeasurementUnit::all();
 
+        // Returning view with patient, substances & measurement units
         return view('patients.prescriptions.create', compact('patient', 'substances', 'measurementUnits'));
     }
 
@@ -81,6 +107,9 @@ class PrescriptionController extends Controller
      */
     public function store(Request $request, $patient_id)
     {
+        // Checking if current user can create prescription
+        $this->authorize('create', PatientPrescription::class);
+
         // Validating data
         $request->validate([
             'expiration' => 'sometimes|nullable|date',
@@ -102,7 +131,8 @@ class PrescriptionController extends Controller
 
         // Saving new prescription
         $prescription->save();
-        
+
+        // Returning back with success message
         return redirect()->route('patients.prescriptions.index', $patient_id)->with('success', 'New prescription added');
     }
 
