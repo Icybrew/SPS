@@ -32,7 +32,7 @@
 @endforeach
         </ul>
         <div class="mt-2 text-right">
-            <a href="{{ route('patients.export', $patient->id) }}" class="card-link"><button type="button" class="btn btn-primary">Export</button></a>
+            <a href="{{ route('patients.my-patients.index') }}" class="card-link"><button type="button" class="btn btn-primary">My patients &rarr;</button></a>
         </div>
         <div class="pagination justify-content-center my-3">
             {{ $patients->links() }}
