@@ -8,6 +8,16 @@
     <div class="col-xl-6 col-lg-7 col-md-10 col-sm-12 mx-auto">
         <div class="my-3">
             <h1 class="text-center">Patients</h1>
+            <div class="my-4">
+                <form action="{{ route('patients.index') }}" method="get">
+                    <div class="input-group d-flex">
+                        <input type="search" class="form-control" name="search" placeholder="Firstname / Lastname / SSN / Disease code">
+                        <span class="input-group-prepend">
+                            <button type="submit" class="btn btn-primary">Search</button>
+                        </span>
+                    </div>
+                </form>
+            </div>
         </div>
 @if(!empty($patients) && count($patients) > 0)
         <ul class="list-group">
