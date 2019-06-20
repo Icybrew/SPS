@@ -37,7 +37,7 @@ class PatientMedicalHistorySeeder extends Seeder
                 'visit_duration' => rand(30, 180),
                 'visit_compensated' => rand(0, 1),
                 'visit_repeated' => rand(0, 1),
-                'visited_at' => $faker->dateTimeThisYear,
+                'visited_at' => $faker->dateTimeThisMonth,
             ]);
         }
 
