@@ -50,7 +50,7 @@ class PatientMedicalHistoryPolicy
      */
     public function update(User $user, PatientMedicalHistory $patientMedicalHistory)
     {
-        if ($user->isAdmin() || $user->isDoctor()) {
+        if ($user->isAdmin() || ($user->id == $patientMedicalHistory->doctor_id)) {
             return TRUE;
         } else {
             return FALSE;
