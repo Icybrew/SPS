@@ -63,6 +63,10 @@
                         <li class="nav-item{{ Request::is('patients*') ? ' active' : NULL }}">
                             <a class="nav-link" href="{{ route('patients.index') }}">Patients</a>
                         </li>
+@elseif(Auth::check() && Auth::user()->isPharmacist())
+                        <li class="nav-item{{ Request::is('patients*') ? ' active' : NULL }}">
+                            <a class="nav-link" href="{{ route('patients.search') }}">Patients</a>
+                        </li>
 @endif
 @if(Auth::check() && Auth::user()->hasRole(config('roles.name.admin')))
                         <li class="nav-item{{ Request::is('admin*') ? ' active' : NULL }}">
