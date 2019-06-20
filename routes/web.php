@@ -42,6 +42,8 @@ Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword'
 
 /* Patients */
 Route::get('/patients', 'PatientController@index')->middleware('doctor')->name('patients.index');
+Route::get('/patients/my-patients', 'PatientController@myPatients')->middleware('doctor')->name('patients.my-patients.index');
+Route::get('/patients/my-patients/export', 'PatientController@myPatientsExport')->middleware('doctor')->name('patients.my-patients.export');
 Route::get('/patients/{id}', 'PatientController@show')->middleware('doctor')->name('patients.show');
 
 /* Medical history */
