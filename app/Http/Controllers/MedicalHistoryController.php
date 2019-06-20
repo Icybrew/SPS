@@ -10,6 +10,14 @@ use SPS\PatientMedicalHistory;
 
 class MedicalHistoryController extends Controller
 {
+
+    public function __construct() {
+
+        // Making sure user is logged in.
+        $this->middleware('auth');
+
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -17,14 +25,28 @@ class MedicalHistoryController extends Controller
      */
     public function index($id = NULL)
     {
-        //if ($id !== NULL) {
-        $patient = User::with('medicalHistory')->findOrFail($id);
-        $medicalHistory = $patient->medicalHistory()->orderBy('visited_at', 'desc')->paginate();
-        return view('patients.medical-history.index', compact('patient', 'medicalHistory'));
-//        } else {
-//            $medicalHistory = Auth::user()->medicalHistory()->with('doctor')->orderBy('visited_at', 'desc')->paginate();
-//            return view('medical-history.index', compact('medicalHistory'));
-//        }
+        // Checking if request is for specific user
+        if ($id !== NULL) {
+
+            // Getting patient with medical history
+            $patient = User::with('medicalHistory')->findOrFail($id);
+
+            // Checking if current user can view patients medical history
+            $this->authorize('viewMedicalHistory', $patient);
+            
+            // Getting medical history from patient, ordered by visit date
+            $medicalHistory = $patient->medicalHistory()->orderBy('visited_at', 'desc')->paginate();
+
+            // Returning view with patient & medical history
+            return view('patients.medical-history.index', compact('patient', 'medicalHistory'));
+        } else {
+
+            // Getting current users medical history, ordered by visit date
+            $medicalHistory = Auth::user()->medicalHistory()->with('doctor')->orderBy('visited_at', 'desc')->paginate();
+
+            // Returning view with medical history
+            return view('medical-history.index', compact('medicalHistory'));
+        }
     }
 
     /**
@@ -35,10 +57,17 @@ class MedicalHistoryController extends Controller
      */
     public function show($patient_id, $medical_history_id)
     {
-        $entry = PatientMedicalHistory::with('patient')->findOrFail($medical_history_id);
+        // Getting specific entry from medical history with patient
+        $entry = PatientMedicalHistory::with('patient')->where('patient_id', '=', $patient_id)->findOrFail($medical_history_id);
+
+        // Checking if current user can view specific medical history entry
+        $this->authorize('view', $entry);
+
+        // Getting patient from entry
         $patient = $entry->patient;
 
-        return view('patients.medical-history.entry', compact('entry', 'patient'));
+        // Returning view with patient & medical history entry
+        return view('patients.medical-history.entry', compact('patient', 'entry'));
     }
 
     /**
@@ -48,11 +77,15 @@ class MedicalHistoryController extends Controller
      */
     public function create($patient_id)
     {
+        // Checking if current user can create new medical history entry
+        $this->authorize('create', PatientMedicalHistory::class);
+
         // Getting user with extraInfoPatient who has patient role
         $patient = User::with('extraInfoPatient')->whereHas('roles', function ($q) {
             $q->where('name', config('roles.name.patient'));
         })->where('id', '=', $patient_id)->firstOrFail();
 
+        // Returning view with patient
         return view('patients.medical-history.create', compact('patient'));
     }
 
@@ -64,6 +97,9 @@ class MedicalHistoryController extends Controller
      */
     public function store(Request $request, $patient_id)
     {
+        // Checking if current user can create new medical history entry
+        $this->authorize('create', PatientMedicalHistory::class);
+        
         // Validating data
         $request->validate([
             'disease_code' => 'required|regex:/^[a-zA-Z]{1}/',
@@ -84,7 +120,8 @@ class MedicalHistoryController extends Controller
 
         // Saving new entry
         $entry->save();
-        
+
+        // Returning back with success message
         return redirect()->route('patients.medical-history.index', $patient_id)->with('success', 'New entry added');
     }
 
