@@ -37,7 +37,11 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        return TRUE;
+        if($user->isAdmin() || $user->isDoctor() || $user->isPharmacist() || ($user->id == $model->id)) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     /**
@@ -48,7 +52,7 @@ class UserPolicy
      */
     public function create(User $user)
     {
-        if ($user->hasRole(config('roles.name.admin'))) {
+        if ($user->isAdmin()) {
             return TRUE;
         } else {
             return FALSE;
@@ -64,7 +68,7 @@ class UserPolicy
      */
     public function update(User $user, User $model)
     {
-        if ($user->hasRole(config('roles.name.admin'))) {
+        if ($user->isAdmin() || ($user->id == $model->id)) {
             return TRUE;
         } else {
             return FALSE;
@@ -92,7 +96,7 @@ class UserPolicy
      */
     public function restore(User $user, User $model)
     {
-        if ($user->hasRole(config('roles.name.admin'))) {
+        if ($user->isAdmin()) {
             return TRUE;
         } else {
             return FALSE;
