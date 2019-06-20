@@ -63,6 +63,7 @@ class Kernel extends HttpKernel
         'admin' => \SPS\Http\Middleware\Admin::class,
         'doctor' => \SPS\Http\Middleware\Doctor::class,
         'patient' => \SPS\Http\Middleware\Patient::class,
+        'pharmacist' => \SPS\Http\Middleware\Pharmacist::class,
     ];
 
     /**
