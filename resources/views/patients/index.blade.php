@@ -11,7 +11,7 @@
             <div class="my-4">
                 <form action="{{ route('patients.index') }}" method="get">
                     <div class="input-group d-flex">
-                        <input type="search" class="form-control" name="search" placeholder="Firstname / Lastname / SSN / Disease code">
+                        <input type="search" class="form-control" name="search" placeholder="Firstname / Lastname / SSN / Disease code" required>
                         <span class="input-group-prepend">
                             <button type="submit" class="btn btn-primary">Search</button>
                         </span>
@@ -24,15 +24,15 @@
 @foreach($patients as $patient)
             <li class="list-group-item mb-1 d-flex">
                 <div class="my-auto">
-                    ID: {{ $patient->id }}, <a href="{{ route('patients.show', $patient->id) }}">{{ $patient->firstname . ' ' . $patient->lastname }}</a>
+                    ID: {{ $patient->id }}, <a href="{{ route('patients.show', [$patient->id]) }}">{{ $patient->firstname . ' ' . $patient->lastname }}</a>
                 </div>
                 <div class="my-auto ml-auto">
-                    <a href="{{ route('patients.prescriptions.create', $patient->id) }}" class="d-inline-block mx-2" title="Write a prescription">
+                    <a href="{{ route('patients.prescriptions.create', [$patient->id]) }}" class="d-inline-block mx-2" title="Write a prescription">
                         <h3 class="d-inline">
                             <i class="fas fa-prescription-bottle-alt"></i>
                         </h3>
                     </a>
-                    <a href="{{ route('patients.medical-history.create', $patient->id) }}" title="Create a new medical entry">
+                    <a href="{{ route('patients.medical-history.create', [$patient->id]) }}" title="Create a new medical entry">
                         <h3 class="d-inline">
                             <i class="fas fa-file-medical"></i>
                         </h3>
