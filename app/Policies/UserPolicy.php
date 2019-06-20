@@ -11,7 +11,7 @@ class UserPolicy
 
     function viewMedicalHistory(User $user, User $patient)
     {
-        if ($user->isAdmin() || $user->isDoctor()) {
+        if ($user->isAdmin() || $user->isDoctor() || ($user->id == $patient->id && $user->isPatient())) {
             return TRUE;
         } else {
             return FALSE;
