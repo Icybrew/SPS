@@ -36,24 +36,23 @@ Route::get('/specialists', 'SpecialistController@index')->name('specialists.inde
 Route::resource('/profile', 'ProfileController')->middleware('auth')->except([
     'create', 'store', 'destroy'
 ]);
-Route::get('/profile/{id}/change-password', 'ProfileController@editPassword')->name('profile.edit-password')->middleware('auth');
-Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword')->name('profile.update-password')->middleware('auth');
+Route::get('/profile/{id}/change-password', 'ProfileController@editPassword')->middleware('auth')->name('profile.edit-password');
+Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword')->middleware('auth')->name('profile.update-password');
 
 
 /* Patients */
-Route::get('/patients', 'PatientController@index')->middleware('auth')->name('patients.index');
-Route::get('/patients/export', 'PatientController@export')->middleware('auth')->name('patients.export');
-Route::get('/patients/{id}', 'PatientController@show')->middleware('auth')->name('patients.show');
+Route::get('/patients', 'PatientController@index')->middleware('doctor')->name('patients.index');
+Route::get('/patients/{id}', 'PatientController@show')->middleware('doctor')->name('patients.show');
 
 /* Medical history */
 Route::resource('/patients/{id}/medical-history', 'MedicalHistoryController', [
     'as' => 'patients'
-])->middleware('auth');
+])->middleware('doctor');
 
 /* Prescriptions */
 Route::resource('/patients/{id}/prescriptions', 'PrescriptionController', [
     'as' => 'patients'
-])->middleware('auth');
+])->middleware('doctor');
 
 
 /*-----------*/
@@ -66,9 +65,9 @@ Route::resource('admin/doctors', 'Admin\DoctorController', [
     'as' => 'admin'
 ])->middleware('admin');
 
-Route::get('/admin/doctors/{id}/patients', 'Admin\DoctorController@patients')->name('admin.doctors.patients');
-Route::get('/admin/doctors/{id}/patients/add', 'Admin\DoctorController@addPatient')->name('admin.doctors.patients.add');
-Route::post('/admin/doctors/{id}/patients', 'Admin\DoctorController@storePatient')->name('admin.doctors.patients.store');
+Route::get('/admin/doctors/{id}/patients', 'Admin\DoctorController@patients')->middleware('admin')->name('admin.doctors.patients');
+Route::get('/admin/doctors/{id}/patients/add', 'Admin\DoctorController@addPatient')->middleware('admin')->name('admin.doctors.patients.add');
+Route::post('/admin/doctors/{id}/patients', 'Admin\DoctorController@storePatient')->middleware('admin')->name('admin.doctors.patients.store');
 
 /* ADMIN PATIENTS */
 Route::resource('admin/patients', 'Admin\PatientController', [
