@@ -38,5 +38,7 @@ class DatabaseSeeder extends Seeder
         // Medical substances
         $this->call(MedicalSubstancesSeeder::class);
 
+        // Patients
+        $this->call(PatientsSeeder::class);
     }
 }
