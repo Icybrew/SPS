@@ -25,9 +25,11 @@
                 <div>
                     Expires: {{ ($prescription->expires_at !== NULL) ? $prescription->expires_at->format('Y-m-d') : 'Never'  }}
                 </div>
+@can('view', $prescription)
                 <div class="text-right">
                     <a href="{{ route('patients.prescriptions.show', [$patient->id, $prescription->id]) }}"><button type="button" class="btn btn-primary">See details</button></a>
                 </div>
+@endcan
             </li>
 @endforeach
         </ul>
@@ -36,16 +38,20 @@
         </div>
 @else
         <div class="alert alert-info" role="alert">
-            <h3 class="text-center my-auto">Patient has no prescriptions</h3>
+            <h3 class="text-center my-auto">No prescriptions</h3>
         </div>
 @endif
         <div class="d-flex mx-2">
+@can('view', $patient)
             <div class="mr-auto">
                 <a href="{{ route('patients.show', $patient->id) }}"><button type="button" class="btn btn-dark">&larr; Patients profile</button></a>
             </div>
+@endcan
+@can('create', SPS\PatientPrescription::class)
             <div class="ml-auto">
                 <a href="{{ route('patients.prescriptions.create', $patient->id) }}"><button type="button" class="btn btn-success">Prescribe medicine &rarr;</button></a>
             </div>
+@endcan
         </div>
     </div>
 </section>

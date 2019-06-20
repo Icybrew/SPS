@@ -30,16 +30,20 @@
                     ID: {{ $patient->id }}, <a href="{{ route('patients.show', $patient->id) }}">{{ $patient->firstname . ' ' . $patient->lastname }}</a>
                 </div>
                 <div class="my-auto ml-auto">
+@can('create', SPS\PatientPrescription::class)
                     <a href="{{ route('patients.prescriptions.index', $patient->id) }}" class="d-inline-block mx-2" title="View prescriptions">
                         <h3 class="d-inline">
                             <i class="fas fa-prescription-bottle"></i>
                         </h3>
                     </a>
+@endcan
+@can('create', SPS\PatientMedicalHistory::class)
                     <a href="{{ route('patients.medical-history.index', $patient->id) }}" title="View medical history">
                         <h3 class="d-inline">
                             <i class="fas fa-file-medical-alt"></i>
                         </h3>
                     </a>
+@endcan
                 </div>
             </li>
 @endforeach
@@ -49,7 +53,7 @@
         </div>
 @else
         <div class="alert alert-info" role="alert">
-            <h3 class="text-center my-auto">There's no patients matching this criteria</h3>
+            <h3 class="text-center my-auto">There's no patients matching your criteria</h3>
         </div>
 @endif
 @else

@@ -25,9 +25,11 @@
                 <div>
                     Doctor: {{ $entry->doctor->firstname . ' ' . $entry->doctor->lastname }}
                 </div>
+@can('view', $entry)
                 <div class="text-right">
                     <a href="{{ route('patients.medical-history.show', [$patient->id, $entry->id]) }}"><button type="button" class="btn btn-primary">See details</button></a>
                 </div>
+@endcan
             </li>
 @endforeach
         </ul>
@@ -40,12 +42,16 @@
         </div>
 @endif
         <div class="d-flex mx-2">
+@can('view', $patient)
             <div class="mr-auto">
                 <a href="{{ route('patients.show', $patient->id) }}"><button type="button" class="btn btn-dark">&larr; Patients profile</button></a>
             </div>
+@endcan
+@can('create', SPS\PatientMedicalHistory::class)
             <div class="ml-auto">
                 <a href="{{ route('patients.medical-history.create', $patient->id) }}"><button type="button" class="btn btn-success">Create entry &rarr;</button></a>
             </div>
+@endcan
         </div>
     </div>
 </section>

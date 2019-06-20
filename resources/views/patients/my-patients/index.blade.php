@@ -29,16 +29,20 @@
                     ID: {{ $patient->id }}, <a href="{{ route('patients.show', $patient->id) }}">{{ $patient->firstname . ' ' . $patient->lastname }}</a>
                 </div>
                 <div class="my-auto ml-auto">
+@can('create', SPS\PatientPrescription::class)
                     <a href="{{ route('patients.prescriptions.create', $patient->id) }}" class="d-inline-block mx-2" title="Write a prescription">
                         <h3 class="d-inline">
                             <i class="fas fa-prescription-bottle-alt"></i>
                         </h3>
                     </a>
+@endcan
+@can('create', SPS\PatientMedicalHistory::class)
                     <a href="{{ route('patients.medical-history.create', $patient->id) }}" title="Create a new medical entry">
                         <h3 class="d-inline">
                             <i class="fas fa-file-medical"></i>
                         </h3>
                     </a>
+@endcan
                 </div>
             </li>
 @endforeach

@@ -23,12 +23,18 @@
             </ul>
         </div>
         <div class="m-3 d-flex">
+@if(Auth::user()->isDoctor())
             <div class="mr-auto">
                 <a href="{{ route('patients.index') }}" class="mr-auto"><button type="button" class="btn btn-dark">&larr; All patients</button></a>
             </div>
+@endif
             <div class="ml-auto">
+@can('viewMedicalHistory', $patient)
                 <a href="{{ route('patients.medical-history.index', $patient->id) }}" class="card-link"><button type="button" class="btn btn-primary">Medical history</button></a>
+@endcan
+@can('viewPrescriptions', $patient)
                 <a href="{{ route('patients.prescriptions.index', $patient->id) }}" class="card-link"><button type="button" class="btn btn-primary">Prescriptions</button></a>
+@endcan
             </div>
         </div>
     </div>
