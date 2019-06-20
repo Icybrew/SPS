@@ -9,6 +9,25 @@ class UserPolicy
 {
     use HandlesAuthorization;
 
+    function viewMedicalHistory(User $user, User $patient)
+    {
+        if ($user->isAdmin() || $user->isDoctor()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    function viewPrescriptions(User $user, User $patient)
+    {
+        if ($user->isAdmin() || $user->isDoctor() || $user->isPharmacist()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    
     /**
      * Determine whether the user can view the model.
      *
