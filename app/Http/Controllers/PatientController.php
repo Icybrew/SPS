@@ -18,10 +18,12 @@ class PatientController extends Controller
     {
         if ($request->has('search')) {
 
-            $patients = User::whereHas('roles', function ($q) { $q->where('name', '=', 'Patient'); })
+            $patients = User::whereHas('roles', function ($q) { $q->where('name', '=', config('roles.name.patient')); })
+                    ->leftJoin('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
                     ->where(function ($q) use ($request) {
                         $q->where('firstname', 'LIKE', "%{$request->search}%");
                         $q->orWhere('lastname', 'LIKE', "%{$request->search}%");
+                        $q->orWhere('ssn', 'LIKE', "%{$request->search}%");
                     })
                     ->paginate();
 
