@@ -15,6 +15,7 @@ class AuthServiceProvider extends ServiceProvider
     protected $policies = [
         'SPS\User' => 'SPS\Policies\UserPolicy',
         'SPS\UserRole' => 'SPS\Policies\UserRolePolicy',
+        'SPS\PatientMedicalHistory' => 'SPS\Policies\PatientmedicalHistoryPolicy',
     ];
 
     /**
