@@ -4,9 +4,13 @@ namespace SPS\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\MessageBag;
 
 use SPS\User;
+
 use SPS\PatientPrescription;
+use SPS\PatientPrescriptionPurchase;
+
 use SPS\MedicalSubstance;
 use SPS\MeasurementUnit;
 
@@ -134,6 +138,36 @@ class PrescriptionController extends Controller
 
         // Returning back with success message
         return redirect()->route('patients.prescriptions.index', $patient_id)->with('success', 'New prescription added');
+    }
+
+    public function purchase(Request $request, $patient_id, $prescription_id)
+    {
+        // Validating data
+        $request->validate([
+            'purchase' => 'required|nullable|'
+        ]);
+
+        // Checking if current user can add purchase to the prescription
+        $this->authorize('create', PatientPrescriptionPurchase::class);
+
+        // Getting prescription
+        $prescription = PatientPrescription::where('patient_id', '=', $patient_id)->where('id', '=', $prescription_id)->exists();
+
+        // Checking if prescription is valid
+        if ($prescription) {
+            // Creating new purchase
+            $purchase = new PatientPrescriptionPurchase;
+            $purchase->pharmacist_id = Auth::user()->id;
+            $purchase->patient_prescription_id = $prescription_id;
+
+            // Saving new purchase
+            $purchase->save();
+
+            // Returning back with success message
+            return redirect()->back()->with('success', 'Purchase added');
+        } else {
+            return redirect()->back()->withErrors(new MessageBag(['prescription' => 'Invalid prescription']));
+        }
     }
 
     /**
