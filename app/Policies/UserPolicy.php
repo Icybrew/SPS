@@ -45,7 +45,7 @@ class UserPolicy
      */
     public function view(User $user, User $model)
     {
-        if($user->isAdmin() || $user->isDoctor() || $user->isPharmacist() || ($user->id == $model->id)) {
+        if($user->isAdmin() || ($user->isDoctor() && $model->isPatient()) || ($user->isPharmacist() && $model->isPatient()) || ($user->id == $model->id)) {
             return TRUE;
         } else {
             return FALSE;
