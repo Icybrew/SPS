@@ -18,13 +18,14 @@ class PatientController extends Controller
     {
         if ($request->has('search')) {
 
-            $patients = User::whereHas('roles', function ($q) { $q->where('name', '=', config('roles.name.patient')); })
+            $patients = User::select('users.*')->whereHas('roles', function ($q) { $q->where('name', '=', config('roles.name.patient')); })
                     ->leftJoin('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
                     ->where(function ($q) use ($request) {
                         $q->where('firstname', 'LIKE', "%{$request->search}%");
                         $q->orWhere('lastname', 'LIKE', "%{$request->search}%");
                         $q->orWhere('ssn', 'LIKE', "%{$request->search}%");
                     })
+                    ->orderBy('users.id', 'desc')
                     ->paginate();
 
             $patients->appends(['search' => $request->search]);
@@ -32,7 +33,7 @@ class PatientController extends Controller
             return view('patients.index', compact('patients'));
         } else {
             // Getting all users with patient role
-            $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->orderBy('created_at', 'desc')->paginate();
+            $patients = User::whereHas('roles', function ($q) { $q->where('name', '=', config('roles.name.patient')); })->orderBy('users.id', 'desc')->paginate();
 
             return view('patients.index', compact('patients'));
         }
@@ -68,13 +69,14 @@ class PatientController extends Controller
                         $q->orWhere('lastname', 'LIKE', "%{$request->search}%");
                         $q->orWhere('ssn', 'LIKE', "%{$request->search}%");
                     })
+                    ->orderBy('users.id', 'desc')
                     ->paginate();
 
             $patients->appends(['search' => $request->search]);
 
             return view('patients.my-patients.index', compact('patients'));
         } else {
-            $patients = Auth::user()->patients()->with('extraInfoPatient')->paginate();
+            $patients = Auth::user()->patients()->with('extraInfoPatient')->orderBy('users.id', 'desc')->paginate();
             return view('patients.my-patients.index', compact('patients'));
         }
     }
