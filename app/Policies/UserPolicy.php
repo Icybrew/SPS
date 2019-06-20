@@ -26,8 +26,16 @@ class UserPolicy
             return FALSE;
         }
     }
-    
-    
+
+    public function viewPatients(User $user)
+    {
+        if ($user->isAdmin() || $user->isDoctor()) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
     /**
      * Determine whether the user can view the model.
      *
