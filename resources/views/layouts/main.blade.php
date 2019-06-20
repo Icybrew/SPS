@@ -85,11 +85,14 @@
                             </a>
 
                             <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-@if(Auth::user()->isPatient())
-                                <a class="dropdown-item" href="{{ route('patients.medical-history.index', Auth::user()->id) }}">Medical history</a>
+@if(Auth::user()->isDoctor())
+                                <a class="dropdown-item" href="{{ route('patients.my-patients.index') }}">My patients</a>
 @endif
 @if(Auth::user()->isPatient())
-                                <a class="dropdown-item" href="{{ route('patients.prescriptions.index', Auth::user()->id) }}">Prescriptions</a>
+                                <a class="dropdown-item" href="{{ route('patients.medical-history.index', Auth::user()->id) }}">My Medical history</a>
+@endif
+@if(Auth::user()->isPatient())
+                                <a class="dropdown-item" href="{{ route('patients.prescriptions.index', Auth::user()->id) }}">My Prescriptions</a>
 @endif
                                 <a class="dropdown-item" href="{{ route('profile.index') }}">Profile</a>
                                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
