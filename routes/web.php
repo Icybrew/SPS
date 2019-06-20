@@ -57,6 +57,7 @@ Route::resource('/patients/{id}/prescriptions', 'PrescriptionController', [
     'as' => 'patients'
 ]);
 
+Route::post('/patients/{patient_id}/prescriptions/{prescription_id}/purchase', 'PrescriptionController@purchase')->name('patients.prescriptions.purchase');
 
 /*-----------*/
 /*   ADMIN   */
