@@ -8,6 +8,7 @@ use Illuminate\Support\MessageBag;
 
 use SPS\User;
 use SPS\Patient;
+use SPS\ExtraInfoPatient;
 use SPS\Role;
 
 class PatientController extends Controller
@@ -34,7 +35,30 @@ class PatientController extends Controller
         return view('patients.patient', compact('patient'));
     }
 
-    public function exportPatients()
+    public function myPatients(Request $request)
+    {
+        $request->validate([
+            'search' => 'sometimes|required|min:3'
+        ]);
+
+        if ($request->has('search')) {
+            $patients = Auth::user()->patients()->with('extraInfoPatient')
+                    ->join('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
+                    ->where('firstname', 'like', '%' . $request->search . '%')
+                    ->orWhere('lastname', 'like', '%' . $request->search . '%')
+                    ->orWhere('ssn', 'like', '%' . $request->search . '%')
+                    ->paginate();
+
+            $patients->appends(['search' => $request->search]);
+
+            return view('patients.my-patients.index', compact('patients'));
+        } else {
+            $patients = Auth::user()->patients()->with('extraInfoPatient')->paginate();
+            return view('patients.my-patients.index', compact('patients'));
+        }
+    }
+   
+    public function myPatientsExport()
     {
         // Getting current users patient list
         $patients = Auth::user()->patients()->with('extraInfoPatient')->paginate();
@@ -65,6 +89,6 @@ class PatientController extends Controller
         } else {
             return redirect()->back()->withErrors(new MessageBag(['export' => "You have 0 patients"]));
         }
-
     }
+    
 }
