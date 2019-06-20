@@ -20,7 +20,7 @@ class UserPolicy
 
     function viewPrescriptions(User $user, User $patient)
     {
-        if ($user->isAdmin() || $user->isDoctor() || $user->isPharmacist()) {
+        if ($user->isAdmin() || $user->isDoctor() || $user->isPharmacist() || ($user->id == $patient->id && $user->isPatient())) {
             return TRUE;
         } else {
             return FALSE;
