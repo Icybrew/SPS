@@ -58,6 +58,27 @@ class PatientController extends Controller
         return view('patients.patient', compact('patient'));
     }
 
+    public function search(Request $request)
+    {
+        
+        $request->validate([
+            'search' => 'sometimes|required|numeric|digits:11'
+        ]);
+        
+        if ($request->has('search')) {
+            $patients = User::select('users.*')->whereHas('roles', function ($q) { $q->where('name', '=', config('roles.name.patient')); })
+                    ->leftJoin('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
+                    ->where(function ($q) use ($request) {
+                        $q->Where('extra_info_patient.ssn', 'LIKE', "%{$request->search}%");
+                    })
+                    ->paginate();
+
+            return view('patients.search', compact('patients'));
+        } else {
+            return view('patients.search');
+        }
+    }
+
     public function myPatients(Request $request)
     {
 
