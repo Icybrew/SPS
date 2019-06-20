@@ -11,6 +11,10 @@ class UsersSeeder extends Seeder
      */
     public function run()
     {
+        // Deleting all previous data
+        //DB::table('users')->delete();
+
+        // Creating fake users via factory
         factory(SPS\User::class, 50)->create();
     }
 }
