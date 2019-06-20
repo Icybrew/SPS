@@ -58,6 +58,12 @@ Breadcrumbs::register('patients', function ($breadcrumbs) {
     $breadcrumbs->push('Patients', route('patients.index'));
 });
 
+// Patients -> My Patients
+Breadcrumbs::register('patients.my-patients.index', function ($breadcrumbs) {
+    $breadcrumbs->parent('patients');
+    $breadcrumbs->push('My patients', route('patients.my-patients.index'));
+});
+
 // Patients -> Patient
 Breadcrumbs::register('patients.show', function ($breadcrumbs, $patient) {
     $breadcrumbs->parent('patients');
