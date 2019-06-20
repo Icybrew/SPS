@@ -27,11 +27,22 @@ class ExtraInfoPatientSeeder extends Seeder
         {
             array_push($extraInfoPatient, [
                 'patient_id' => $patient->id,
-                'ssn' => rand(10000000000, 99999999999),
+                'ssn' => $this->generateSSN(),
             ]);
         }
 
         // Inserting records
         DB::table('extra_info_patient')->insert($extraInfoPatient);
+    }
+
+    public function generateSSN()
+    {
+        $ssn = rand(1, 9);
+
+        for ($i = 1; $i <= 10; $i++) {
+            $ssn .= rand(1, 9);
+        }
+
+        return $output;
     }
 }
