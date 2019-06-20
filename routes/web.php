@@ -41,21 +41,21 @@ Route::patch('/profile/{id}/change-password', 'ProfileController@updatePassword'
 
 
 /* Patients */
-Route::get('/patients', 'PatientController@index')->middleware('doctor')->name('patients.index');
-Route::get('/patients/search', 'PatientController@search')->middleware('pharmacist')->name('patients.search');
-Route::get('/patients/my-patients', 'PatientController@myPatients')->middleware('doctor')->name('patients.my-patients.index');
-Route::get('/patients/my-patients/export', 'PatientController@myPatientsExport')->middleware('doctor')->name('patients.my-patients.export');
-Route::get('/patients/{id}', 'PatientController@show')->middleware('doctor')->name('patients.show');
+Route::get('/patients', 'PatientController@index')->name('patients.index');
+Route::get('/patients/search', 'PatientController@search')->name('patients.search');
+Route::get('/patients/my-patients', 'PatientController@myPatients')->name('patients.my-patients.index');
+Route::get('/patients/my-patients/export', 'PatientController@myPatientsExport')->name('patients.my-patients.export');
+Route::get('/patients/{id}', 'PatientController@show')->name('patients.show');
 
 /* Medical history */
 Route::resource('/patients/{id}/medical-history', 'MedicalHistoryController', [
     'as' => 'patients'
-])->middleware('doctor');
+]);
 
 /* Prescriptions */
 Route::resource('/patients/{id}/prescriptions', 'PrescriptionController', [
     'as' => 'patients'
-])->middleware('doctor');
+]);
 
 
 /*-----------*/
