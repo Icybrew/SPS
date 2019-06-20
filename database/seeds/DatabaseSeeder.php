@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         // User roles
         $this->call(UserRolesSeeder::class);
         
+        // Specializations
+        $this->call(SpecializationsSeeder::class);
+        
         // Extra info patient
         $this->call(ExtraInfoPatientSeeder::class);
 
@@ -28,9 +31,6 @@ class DatabaseSeeder extends Seeder
 
         // Extra info pharmacist
         $this->call(ExtraInfoPharmacistSeeder::class);
-
-        // Specializations
-        $this->call(SpecializationsSeeder::class);
 
         // Measurement units
         $this->call(MeasurementUnitsSeeder::class);
