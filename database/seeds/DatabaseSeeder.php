@@ -20,6 +20,9 @@ class DatabaseSeeder extends Seeder
         // Extra info doctor
         $this->call(ExtraInfoDoctorSeeder::class);
 
+        // Extra info pharmacist
+        $this->call(ExtraInfoPharmacistSeeder::class);
+
         // Roles
         $this->call(RolesSeeder::class);
 
