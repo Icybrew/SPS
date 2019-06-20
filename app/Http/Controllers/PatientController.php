@@ -14,8 +14,28 @@ use SPS\Role;
 class PatientController extends Controller
 {
 
-    public function index()
+    public function index(Request $request)
     {
+        if ($request->has('search')) {
+
+            $patients = User::whereHas('roles', function ($q) { $q->where('name', '=', 'Patient'); })
+                    ->where(function ($q) use ($request) {
+                        $q->where('firstname', 'LIKE', "%{$request->search}%");
+                        $q->orWhere('lastname', 'LIKE', "%{$request->search}%");
+                    })
+                    ->paginate();
+
+            $patients->appends(['search' => $request->search]);
+
+            return view('patients.index', compact('patients'));
+        } else {
+            // Getting all users with patient role
+            $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->orderBy('created_at', 'desc')->paginate();
+
+            return view('patients.index', compact('patients'));
+        }
+
+
         // Getting all users with patient role
         $patients = Role::where('name', '=', config('roles.name.patient'))->first()->users()->orderBy('created_at', 'desc')->paginate();
 
@@ -37,16 +57,15 @@ class PatientController extends Controller
 
     public function myPatients(Request $request)
     {
-        $request->validate([
-            'search' => 'sometimes|required|min:3'
-        ]);
 
         if ($request->has('search')) {
             $patients = Auth::user()->patients()->with('extraInfoPatient')
-                    ->join('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
-                    ->where('firstname', 'like', '%' . $request->search . '%')
-                    ->orWhere('lastname', 'like', '%' . $request->search . '%')
-                    ->orWhere('ssn', 'like', '%' . $request->search . '%')
+                    ->leftJoin('extra_info_patient', 'users.id', '=', 'extra_info_patient.patient_id')
+                    ->where(function ($q) use ($request) {
+                        $q->where('firstname', 'LIKE', "%{$request->search}%");
+                        $q->orWhere('lastname', 'LIKE', "%{$request->search}%");
+                        $q->orWhere('ssn', 'LIKE', "%{$request->search}%");
+                    })
                     ->paginate();
 
             $patients->appends(['search' => $request->search]);
