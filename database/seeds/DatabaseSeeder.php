@@ -40,5 +40,9 @@ class DatabaseSeeder extends Seeder
 
         // Patients
         $this->call(PatientsSeeder::class);
+
+        // Patient medical history
+        $this->call(PatientMedicalHistorySeeder::class);
+
     }
 }
